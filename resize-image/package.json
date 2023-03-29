@@ -1,0 +1,20 @@
+{
+  "name": "cy-create-thumbnail-from-s3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "cp .env.example .env && rm -rf dist",
+    "build": "node esbuild.config.js",
+    "zip": "zip -rj deploy.zip dist",
+    "update": "aws lambda update-function-code --function-name cy-create-thumbnail-from-s3 --zip-file fileb://deploy.zip",
+    "upload": "npm run build && npm run zip && npm run update"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.14"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1344.0",
+    "jimp": "^0.22.7"
+  }
+}
